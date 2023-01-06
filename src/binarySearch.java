@@ -221,8 +221,8 @@ public class binarySearch {
     }
 
 
-    //time complexity:
-    //space complexity:
+    //time complexity: O(log(N))
+    //space complexity: O(N)
     public static int[] kClosest(int[] array, int target, int k){
         if(array.length < k){
             return new int[0];
