@@ -81,7 +81,7 @@ public class binarySearch {
         int[] A = {2,5,7,10,13};
         int[] B = {1,3,4,13,20};
         int leftA = 0, leftB = 0;
-        k = 5;
+//        k = 5;
 //        result = kthSmallestInTwoSortedArrays(A, leftA, B, leftB, k);
 //        System.out.println(k+"th smallest in two sorted array : " + result);
 
