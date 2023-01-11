@@ -1,3 +1,6 @@
+import java.util.HashMap;
+import java.util.IdentityHashMap;
+import java.util.Map;
 public class binarySearch {
     public static void main(String[] args){
         // classic binary search
@@ -68,6 +71,30 @@ public class binarySearch {
 
 
         // show the smallest element that is larger than target
+        int[] smallestElementArray = {1,2,2,2,2,2,7,7,7,7,8,8,9};
+        target = 7;
+//        result = smallestElement(smallestElementArray, target);
+//        System.out.println("The smallest element is: " + result);
+
+
+        // k-th smallest in two sorted array
+        int[] A = {2,5,7,10,13};
+        int[] B = {1,3,4,13,20};
+        int leftA = 0, leftB = 0;
+        k = 5;
+//        result = kthSmallestInTwoSortedArrays(A, leftA, B, leftB, k);
+//        System.out.println(k+"th smallest in two sorted array : " + result);
+
+
+        // Search In Unknown Sized Sorted Array
+        Map<Integer, Integer> dic = new HashMap<Integer,Integer >();
+        for(int i = 0; i <= 100; i++) {
+            dic.put(i,i);
+        }
+        target = 10;
+//        result = searchInUnknownSizedSortedArray(dic, target);
+//        System.out.println("The position of the target is: " + result);
+
 
 
 
@@ -76,7 +103,7 @@ public class binarySearch {
     }
 
     // time complexity = O(log(N))
-    // space complexity = O(N)
+    // space complexity = O(1)
     private static int classicalBinarySearch(int[] array, int target){
         // check array
         if (array == null || array.length == 0){
@@ -100,7 +127,7 @@ public class binarySearch {
     }
 
     // time complexity = O(log(N))
-    // space complexity = O(N)
+    // space complexity = O(1)
     public static int[] matrixBinarySearch(int[][] matrix, int target){
 
         if(matrix.length == 0 || matrix[0].length == 0 ){
@@ -131,7 +158,7 @@ public class binarySearch {
     }
 
     //time complexity O(log(N))
-    //space complexity O(N)
+    //space complexity O(1)
     public static int closestElement(int[] array, int target){
         if(array.length == 0 || array == null){
             return -1;
@@ -161,7 +188,7 @@ public class binarySearch {
 
 
     //time complexity: O(log(N))
-    //space complexity: O(N)
+    //space complexity: O(1)
     public static int firstTarget(int[] array, int target){
         if(array.length == 0 || array == null){
             return -1;
@@ -192,7 +219,7 @@ public class binarySearch {
 
 
     //time complexity: O(log(N))
-    //space complexity: O(N)
+    //space complexity: O(1)
     public static int lastTarget(int[] array, int target){
         if(array.length == 0 || array == null){
             return -1;
@@ -222,7 +249,7 @@ public class binarySearch {
 
 
     //time complexity: O(log(N))
-    //space complexity: O(N)
+    //space complexity: O(1)
     public static int[] kClosest(int[] array, int target, int k){
         if(array.length < k){
             return new int[0];
@@ -261,4 +288,93 @@ public class binarySearch {
         }
         return res;
     }
+
+    //time complexity: O(log(N))
+    //space complexity: O(1)
+    public static int smallestElement(int[] array, int target){
+        if (array[array.length - 1] <= target){
+            return -1;
+        }
+        int left = 0;
+        int right = array.length - 1;
+        while (left < right - 1){
+            int mid = left + (right - left) / 2;
+            if (target == array[mid]) {
+                left = mid;
+            } else if (array[mid] < target) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+        }
+        if (array[left] > target) {
+            return array[left];
+        }
+        if (array[right] > target) {
+            return  array[right];
+        }
+        return -1;
+    }
+
+
+    public static int kthSmallestInTwoSortedArrays(int[] a, int aleft, int[] b, int bleft, int k) {
+        // base case
+        if (aleft >= a.length) {
+            return b[bleft + k - 1];
+        }
+        if (bleft >= b.length) {
+            return a[aleft + k - 1];
+        }
+        if (k == 1) {
+            return Math.min(a[aleft], b[bleft]);
+        }
+
+        //since index starts from left
+        //the k/2 - the element should be left + k/2 - 1
+        int amid = aleft + k / 2 - 1;
+        int bmid = bleft + k / 2 - 1;
+        // if a.size too small, then remove elements from b first.
+        int aval = amid >= a.length ? Integer.MAX_VALUE : a[amid];
+        int bval = bmid >= b.length ? Integer.MAX_VALUE : b[bmid];
+
+        if (aval <= bval) {
+            return kthSmallestInTwoSortedArrays(a, amid + 1, b, bleft, k - k / 2);
+        } else {
+            return kthSmallestInTwoSortedArrays(a, aleft, b, bmid + 1, k - k / 2);
+        }
+    }
+
+
+    //time complexity: O(log(N))
+    //space complexity: O(1)
+    public static int searchInUnknownSizedSortedArray(Map<Integer, Integer> dic, int target){
+        if (dic == null) {
+            return -1;
+        }
+        int left = 0;
+        int right = 1;
+        while (dic.get(right) != null && dic.get(right) < target) {
+            left = right;
+            right = 2 * right;
+        }
+        return binarySearchUnknownArray(dic, target, left, right);
+    }
+
+    public static int binarySearchUnknownArray(Map<Integer,Integer> dic, int target, int left, int right) {
+        while(left <= right){
+            int mid = left + (right - left) / 2;
+            if (dic.get(mid) == null || dic.get(mid) > target){
+                right = mid - 1;
+            }
+            else if (dic.get(mid) < target) {
+                left = mid + 1;
+            }
+            else {
+                return mid;
+            }
+        }
+        return -1;
+    }
+
+
 }
