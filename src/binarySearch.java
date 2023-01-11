@@ -58,8 +58,8 @@ public class binarySearch {
 
         //show the k closest in array
         int[] kClosestArray = {1, 2, 3, 6, 8, 9};
-        int k = 3;
-        target = 4;
+//        int k = 3;
+//        target = 4;
 //        res = kClosest(kClosestArray, target, k);
 //        System.out.print("k closest element: ");
 //        if(res.length == 0 || res == null){
