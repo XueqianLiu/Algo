@@ -43,10 +43,10 @@ public class binarySearch {
 
 
         //show the first target
-        int[] firstTargetArray = {1, 1, 2, 3, 5};
-        target = 5;
-//        result = firstTarget(firstTargetArray, target);
-//        System.out.println("first target occur position: " + result);
+        int[] firstTargetArray = {2,2};
+        target = 2;
+        result = firstTarget(firstTargetArray, target);
+        System.out.println("first target occur position: " + result);
 
 
         //show the last target
@@ -374,6 +374,7 @@ public class binarySearch {
             }
         }
         return -1;
+
     }
 
 
