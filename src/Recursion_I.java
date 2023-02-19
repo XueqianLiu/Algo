@@ -46,18 +46,50 @@ public class Recursion_I {
 //        }
 
         // rainbow sort
-
+        int[] rainbowArray = {1, 0, 0, 1, 1,-1, 0, -1};
+        rainbowSort( rainbowArray );
+        System.out.println("Rainbow Sort: ");
+        for(int i = 0; i < rainbowArray.length; i++){
+            System.out.print(rainbowArray[i] + " ");
+        }
 
     }
 
+    // time complexity O(n)
+    // The algorithm only iterates through the array once and performs a constant amount of work at each iteration.
+    // space comlexity O(1)
+    // The algorithm sorts the input array in place,
+    // without requiring any additional memory for data structures such as temporary arrays or stacks.
+    public static void rainbowSort(int[] array){
+        if (array == null || array.length <= 1) {
+            return;
+        }
+        // left side -1
+        // right side 1
+        // between -1 and 1, is 0
+        // between 0 and 1 is to be discovered
+        int neg = 0;
+        int one = array.length - 1;
+        int zero = 0;
+        while (zero <= one) {
+            if (array[zero] < 0){
+                swap(array, neg++, zero++);
+            } else if (array[zero] == 0) {
+                zero++;
+            } else if (array[zero] > 0) {
+                swap(array, zero ,one--);
+            }
+        }
+    }
+
+    // time complexity O(n log n)  worst case O(n^2)
+    // space complexity O(log n) worst case  O(n)
     public static void quickSort(int[] array, int left, int right){
         if (left >= right) {
             return;
         }
             // define a pivot and use the pivot to partition the array
         int indexOfPivot = partition(array, left, right);
-//        int[] left = Arrays.copyOfRange(array,0,indexOfPivot - 1 );
-//        int[] right = Arrays.copyOfRange(array, indexOfPivot + 1,array.length - 1);
         quickSort(array, left, indexOfPivot - 1);
         quickSort(array, indexOfPivot + 1, right);
     }
