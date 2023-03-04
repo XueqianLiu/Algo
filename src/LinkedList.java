@@ -17,19 +17,22 @@ public class LinkedList {
             head2 = head2.next;
         }
 
-
+        // 1
         // reverse LinkedList
 //        ListNode res = reverseLinkedList(head);
+//        ListNode res = reverse2(head);
 //        System.out.println("reverse the LinkedList: ");
 //        while(res != null){
-//            System.out.print(res.value+" ");
+//            System.out.println(res.value+" ");
 //            res = res.next;
 //        }
 
+        // 2
         // find a middle point in the linkedlist
 //        ListNode mid = findMidLinkedList(head);
 //        System.out.println("The middle node of this LinkedList is: " + mid.value);
 
+        // 3
         // insert a sorted
         int target = -1;
 //        ListNode newHead = insertNode(head, target);
@@ -39,6 +42,7 @@ public class LinkedList {
 //            newHead = newHead.next;
 //        }
 
+        // 4
         // merge two sorted linked list
         ListNode headTwo = new ListNode(0);
         headTwo.add(3);
@@ -60,6 +64,7 @@ public class LinkedList {
 //        }
 
 
+        // 5
         // reorder a linked list.
         // n1 -> n2 -> n3 -> n4 -> null
         // n1 -> n4 -> n2 -> n3 -> null
@@ -71,6 +76,7 @@ public class LinkedList {
 //        }
 
 
+        // 6
         // partition list
         // given a linked list and a target value x
         // partition it such that all node less than target x are listed before the nodes
@@ -99,17 +105,93 @@ public class LinkedList {
 //        }
 
 
+        // 7
         // merge sort in linkedlist
-        System.out.println('\n'+ "mergesort this linkedlist:");
-        ListNode mergeRes = mergeSortLinkedList(partition);
-        while(mergeRes != null){
-            System.out.print(mergeRes.value +" ");
-            mergeRes = mergeRes.next;
+//        System.out.println('\n'+ "mergesort this linkedlist:");
+//        ListNode mergeRes = mergeSortLinkedList(partition);
+//        while(mergeRes != null){
+//            System.out.print(mergeRes.value +" ");
+//            mergeRes = mergeRes.next;
+//        }
+
+        // 8
+        // check if linked list is palindrome
+        //build a palindrome
+        ListNode palindrome = new ListNode(0);
+        palindrome.add(1);
+        palindrome.add(2);
+        palindrome.add(3);
+        palindrome.add(2);
+        palindrome.add(1);
+        palindrome.add(0);
+
+
+//        ListNode palindromeTemp = palindrome;
+//        System.out.println();
+//        while(palindromeTemp != null){
+//            System.out.print(palindromeTemp.value + " ");
+//            palindromeTemp = palindromeTemp.next;
+//        }
+//
+//        boolean resIsPalindrome = isPalindrome( palindrome);
+//        System.out.println("The result of test palindrome is: " + resIsPalindrome);
+
+
+        // 9
+        // remove linked list elements
+        int removeTarget = 5;
+        ListNode removeRes = remove(head, removeTarget);
+
+        System.out.println("After removing the element, the" +
+                " linked list is : ");
+        while (removeRes != null){
+            System.out.print(removeRes.value + " ");
+            removeRes = removeRes.next;
         }
 
 
 
 
+    }
+
+    // time complexity: O(n)
+    // space complexity: O(1)
+    public static ListNode remove(ListNode head, int target){
+        if(head == null) {
+            return head;
+        }
+        ListNode dummy = head;
+        ListNode prev = new ListNode(0);
+        while (head != null) {
+            prev.next = head;
+            if (head.value == target){
+                prev.next = head.next;
+                return dummy;
+            } else {
+                prev = head;
+                head = head.next;
+            }
+
+        }
+        return null;
+    }
+
+
+    public static boolean isPalindrome( ListNode head){
+        if (head == null || head.next == null){
+            return true;
+        }
+        ListNode mid = findMidLinkedList( head );
+        ListNode right = reverse(mid.next);
+
+        while (right != null){
+            if (head.value != right.value){
+                return false;
+            }
+            head = head.next;
+            right = right.next;
+        }
+        return true;
     }
 
     // time complexity: O(n logn)
@@ -324,6 +406,7 @@ public class LinkedList {
 //            prev = head;
 //            head = next;
 //        }
+
 //        return prev;
 
         // recursive way
@@ -352,7 +435,20 @@ public class LinkedList {
         return slow;
     }
 
+    public static ListNode reverse2(ListNode head){
+        if (head == null || head.next == null){
+            return head;
+        }
+        ListNode prev = null;
+        while(head != null){
+            ListNode next = head.next;
+            head.next = prev;
+            prev = head;
+            head= next;
+        }
 
+        return prev;
+    }
 
 
     }
